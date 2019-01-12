@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         OpenCats LinkedIn
 // @namespace    http://ec2-174-129-137-61.compute-1.amazonaws.com/
-// @version      0.3
+// @version      0.5
 // @description  try to take over the world!
 // @author       You
 // @match        http*://ec2-174-129-137-61.compute-1.amazonaws.com/*
@@ -39,6 +39,8 @@
                     lastNameColumn = k;
                 } else if (columnName.indexOf('Current Employer') !== -1) {
                     companyColumn = k;
+                } else if (columnName.indexOf('Company') !== -1) {
+                    companyColumn = k;
                 }
             }
             if (columns[i].className.indexOf('resizeableCell') === -1) {
@@ -49,13 +51,13 @@
             var firstName = tableElements[j].children[firstNameColumn] && tableElements[j].children[firstNameColumn].textContent ? tableElements[j].children[firstNameColumn].textContent : '';
             var lastName = tableElements[j].children[lastNameColumn] && tableElements[j].children[lastNameColumn].textContent ? tableElements[j].children[lastNameColumn].textContent : '';
             var company = tableElements[j].children[companyColumn] && tableElements[j].children[companyColumn].textContent ? tableElements[j].children[companyColumn].textContent : '';
-            var searchQuery = 'https://www.linkedin.com/vsearch/f?keywords=' + encodeURIComponent(firstName + ' ' + lastName + ' ' + company);
+            var searchQuery = 'https://www.linkedin.com/search/results/all/?keywords=' + encodeURIComponent(firstName + ' ' + lastName + ' ' + company);
             console.log(searchQuery);
             var link = document.createElement('a');
             link.setAttribute('href', searchQuery);
             link.setAttribute('target', '_blank');
             var img = document.createElement('img');
-            img.setAttribute('src', 'http://www.tallergestiontecnica.com/wp-content/plugins/fixed-social-icons/img/linkedin.png');
+            img.setAttribute('src', 'https://www.freeiconspng.com/uploads/linkedin-icon-19.png');
             img.setAttribute('style', 'display: inline; width:18px; margin-right: 2px; vertical-align: middle;');
             link.appendChild(img);
             tableElements[j].children[firstNameColumn].insertBefore(link, tableElements[j].children[firstNameColumn].firstChild);
